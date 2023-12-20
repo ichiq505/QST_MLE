@@ -26,3 +26,8 @@ function MEAS_DATA = pauliMeas(RHO)
         clear EFFECT;
     end
 end
+
+function freq = samp2freq(prob,SHOTS)
+    samples = rand(SHOTS,1);
+    freq = nnz(samples <= prob) / SHOTS;
+end

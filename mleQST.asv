@@ -72,15 +72,3 @@ function L = likelihood()
 aaa
 end
 function D1 = direction_1()
-aaa
-end
-function D2 = direction_2()
-aaa
-end
-function dR = dilutedR(step,R)
-    d = length(R);
-    dR = (eye(d) + step * R) / (1+step);
-end
-function N = tr_normalize(A)
-    N = A / trace(A);
-end
