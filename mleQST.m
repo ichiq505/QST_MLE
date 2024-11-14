@@ -1,8 +1,8 @@
 function RHO = mleQST(MEAS_DATA)
 
-%     M = repmat(sum(data),4,1);
-%     f = data./M;
-%     clear('raw_data','M');
+    M = repmat(sum(data),4,1);
+    f = data./M;
+    clear('raw_data','M');
 
     d = uint16(size(MEAS_DATA,2));
 
@@ -67,15 +67,6 @@ function R = evalR(f,RHO_pre)
 end
 function diff = cond(RHO_pre,RHO_now)
     diff = norm(RHO_pre - RHO_now, 'fro');
-end
-function L = likelihood()
-aaa
-end
-function D1 = direction_1()
-aaa
-end
-function D2 = direction_2()
-aaa
 end
 function dR = dilutedR(step,R)
     d = length(R);
