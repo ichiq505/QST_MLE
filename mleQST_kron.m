@@ -1,4 +1,4 @@
-function [X_final, diffs_k] = mleQST(num_qubits, frequencies, gamma, t_max, alphas, maxiter)
+function [X_final, diffs_k] = mleQST_kron(num_qubits, frequencies, gamma, t_max, alphas, maxiter)
 %% Verification & Initialization
 %     X: Quantum state estimator
 %     F: experimental frequency of click E given X - vector
@@ -13,7 +13,7 @@ function [X_final, diffs_k] = mleQST(num_qubits, frequencies, gamma, t_max, alph
     th_diff = 1e-6;
     alphas = sort(alphas);
     dim = 2^num_qubits;
-    E = get_pauliPOVM(num_qubits);
+    E = get_pauliPOVM_kron(num_qubits);
     F = frequencies;
     k = 0;
     
