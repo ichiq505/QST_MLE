@@ -1,8 +1,8 @@
 clc
 disp("*** mleQST 테스트를 시작합니다. ***")
 
-num_qubits = 1;
-shots = 1000;
+num_qubits = 4;
+shots = 1000000;
 X = get_randstate(num_qubits);
 % disp("▼▼ 임의 생성된 양자상태 X로 측정 시뮬레이션을 합니다. shot 수 = " + shots + " ▼▼")
 % tic,[F,P] = do_paulimeas(X,shots); toc
@@ -33,25 +33,32 @@ clf, hold on
 subplot(211), semilogy(Ydiffsk,'.-'), grid on, title(['convergence vs. iteration (sampling) [kron]: ',num2str(elapsedYk),'seconds'])
 subplot(212), semilogy(Zdiffsk,'.-'), grid on, title(['convergence vs. iteration (theoretical probabilities) [kron]: ',num2str(elapsedZk),'seconds'])
 
+
+d = 2^num_qubits;
+outcomes = {};
+for oc=1:d
+    outcomes{oc} = dec2bin(oc-1,num_qubits);
+end
+
 figure(2)
 % subplot(221), 
-subplot(221), bar3(real(X)), axis([0 3 0 3 -inf inf]), title('Re(\rho^{target})')
+subplot(221), bar3(real(X)), axis([0 d+1 0 d+1 -inf inf]), title('Re(\rho^{target})')
 % xticks(1:16),xticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
 % yticks(1:16),yticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
-xticks(1:2),xticklabels({'0','1'});
-yticks(1:2),yticklabels({'0','1'});
-subplot(222), bar3(real(Yk)), axis([0 3 0 3 -inf inf]), title('Re(\rho^{tomography})')
+xticks(1:d),xticklabels(outcomes);
+yticks(1:d),yticklabels(outcomes);
+subplot(222), bar3(real(Yk)), axis([0 d+1 0 d+1 -inf inf]), title('Re(\rho^{tomography})')
 % xticks(1:16),xticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
 % yticks(1:16),yticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
-xticks(1:2),xticklabels({'0','1'});
-yticks(1:2),yticklabels({'0','1'});% subplot(223),
-subplot(223),bar3(imag(X)), axis([0 3 0 3 -inf inf]), title('Im(\rho^{target})')
+xticks(1:d),xticklabels(outcomes);
+yticks(1:d),yticklabels(outcomes);% subplot(223),
+subplot(223),bar3(imag(X)), axis([0 d+1 0 d+1 -inf inf]), title('Im(\rho^{target})')
 % xticks(1:16),xticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
 % yticks(1:16),yticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
-xticks(1:2),xticklabels({'0','1'});
-yticks(1:2),yticklabels({'0','1'});
-subplot(224), bar3(imag(Yk)), axis([0 3 0 3 -inf inf]), title('Im(\rho^{tomography})')
+xticks(1:d),xticklabels(outcomes);
+yticks(1:d),yticklabels(outcomes);
+subplot(224), bar3(imag(Yk)), axis([0 d+1 0 d+1 -inf inf]), title('Im(\rho^{tomography})')
 % xticks(1:16),xticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
 % yticks(1:16),yticklabels({'0000','0001','0010','0011','0100','0101','0110','0111','1000','1001','1010','1011','1100','1101','1110','1111'});
-xticks(1:2),xticklabels({'0','1'});
-yticks(1:2),yticklabels({'0','1'});
+xticks(1:d),xticklabels(outcomes);
+yticks(1:d),yticklabels(outcomes);
