@@ -1,9 +1,9 @@
 clc
 disp("*** mleQST 테스트를 시작합니다. ***")
 
-num_qubits = 4;
-shots = 1000000;
-X = get_randstate(num_qubits);
+num_qubits = 2;
+shots = 36*8000;
+X = [1,0,0,1;0,0,0,0;0,0,0,0;1,0,0,1]/2%get_randstate(num_qubits);
 % disp("▼▼ 임의 생성된 양자상태 X로 측정 시뮬레이션을 합니다. shot 수 = " + shots + " ▼▼")
 % tic,[F,P] = do_paulimeas(X,shots); toc
 % disp("▼▼ 측정 시뮬레이션을 통해 얻은 확률데이터로 QST를 수행합니다. ▼▼")
@@ -18,7 +18,7 @@ X = get_randstate(num_qubits);
 disp("▼▼ 임의 생성된 양자상태 X로 측정 시뮬레이션을 합니다. shot 수 = " + shots + ". 텐서곱에 내장함수 kron을 사용합니다. ▼▼")
 tic,[F,P] = do_paulimeas_kron(X,shots); meas_simul_T = toc; disp(['경과 시간은 ',num2str(meas_simul_T),'초입니다.'])
 disp("▼▼ 측정 시뮬레이션을 통해 얻은 확률데이터로 QST를 수행합니다. ▼▼")
-tic,[Yk, Ydiffsk] = mleQST_kron(num_qubits,F,1e-4,50,[.3 .7]); elapsedYk = toc; disp(['경과 시간은 ',num2str(elapsedYk),'초입니다.'])
+tic,[Yk, Ydiffsk] = mleQST_kron(num_qubits,F2,1e-4,50,[.3 .7]); elapsedYk = toc; disp(['경과 시간은 ',num2str(elapsedYk),'초입니다.'])
 disp('Frobenius norm   /   Trace distance   /   Fidelity')
 disp([norm(X-Yk,'fro'), get_statediff(X,Yk,'trace'), Fidelity(X,Yk)])
 disp("▼▼ Born rule으로 계산한 이론적인 확률데이터로 QST를 수행합니다. ▼▼")
